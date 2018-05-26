@@ -23,4 +23,4 @@
 
 HTTP request:
 
-GET https://api.proworkflow.net/tasks?fields=name,project,projectcategory,timeallocated,timetracked
+GET https://api.proworkflow.net/tasks?fields=name,project,projectcategory,timeallocated,timetracked,completedate
