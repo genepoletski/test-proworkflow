@@ -54,4 +54,80 @@ describe('tasksReducer', () => {
           isLoading: false,
         });
   });
+
+  it('stores task list after successful fetching properly', () => {
+    const prevState = fromJS({
+      tasksByIds: {},
+      tasksIdsByCategories: {},
+    });
+
+    const receivedTasks = [
+      {
+        id: 119,
+        projectcategoryid: 42,
+        projectcategoryname: 'Marketing',
+        name: 'Integrate 0800 Pizzas',
+      },
+      {
+        id: 120,
+        projectcategoryid: 42,
+        projectcategoryname: 'Marketing',
+        name: 'CONTENT AND TESTING',
+      },
+      {
+        id: 121,
+        projectcategoryid: 57,
+        projectcategoryname: 'Logistics',
+        name: 'Deliver laptops',
+      },
+      {
+        id: 122,
+        projectcategoryid: 57,
+        projectcategoryname: 'Logistics',
+        name: 'Improve tracking system',
+      },
+    ];
+
+    const nextState = {
+      tasksByIds: {
+        119: {
+          id: 119,
+          projectcategoryid: 42,
+          projectcategoryname: 'Marketing',
+          name: 'Integrate 0800 Pizzas',
+        },
+        120: {
+          id: 120,
+          projectcategoryid: 42,
+          projectcategoryname: 'Marketing',
+          name: 'CONTENT AND TESTING',
+        },
+        121: {
+          id: 121,
+          projectcategoryid: 57,
+          projectcategoryname: 'Logistics',
+          name: 'Deliver laptops',
+        },
+        122: {
+          id: 122,
+          projectcategoryid: 57,
+          projectcategoryname: 'Logistics',
+          name: 'Improve tracking system',
+        },
+      },
+      tasksIdsByCategories: {
+        42: [119, 120],
+        57: [121, 122],
+      },
+    };
+
+    expect(
+      tasksReducer(prevState, actionTasksFindTaskListSucceed({
+        count: 4,
+        tasks: receivedTasks,
+        totalcount: 4,
+      }))
+        .toJS())
+        .toMatchObject(nextState);
+  });
 });
