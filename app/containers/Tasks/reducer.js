@@ -14,7 +14,7 @@ import {
 
 
 /**
- * 
+ *
  * @param {Array} origTasks Tasks list as an array of objects [ {...}, {...} ]
  *
  * @return {Map} Map with tasks, where keys are tasks ids and values are tasks

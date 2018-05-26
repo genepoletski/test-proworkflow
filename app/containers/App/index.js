@@ -14,7 +14,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Tasks from 'containers/Tasks/Loadable';
+import Tasks from 'containers/Tasks/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function App() {
