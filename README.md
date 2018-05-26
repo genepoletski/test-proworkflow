@@ -14,10 +14,13 @@
 #### Tasks list
 | Task data | URL query field name |
 |---|---|
+| Completed | completedate |
+| Due date | duedate |
 | Project category | projectcategory |
 | Project | project | project |
 | Time spent | timetracked |
 | Time allocated | timeallocated |
-| Completed | completedate |
+
+HTTP request:
 
 GET https://api.proworkflow.net/tasks?fields=name,project,projectcategory,timeallocated,timetracked
