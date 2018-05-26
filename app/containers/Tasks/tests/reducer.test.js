@@ -1,7 +1,7 @@
 /* We will be testing action creaters and reducers together,
  * beacause all the action creators do separately they return JS object
  */
-import fromJS from 'immutable';
+import { fromJS } from 'immutable';
 
 import {
   actionTasksFindTaskListRequest,
@@ -42,7 +42,7 @@ describe('tasksReducer', () => {
         });
   });
 
-  it('unsets status loading on task list request', () => {
+  it('unsets status loading on task list fail', () => {
     const state = fromJS({ isLoading: true });
 
     expect(
@@ -51,7 +51,7 @@ describe('tasksReducer', () => {
       }))
         .toJS())
         .toMatchObject({
-          isLoading: true,
+          isLoading: false,
         });
   });
 });
