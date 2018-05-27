@@ -34,7 +34,7 @@ const makeSelectActiveCategoryTaskList = () => createSelector(
 const makeSelectIsLoading = () => createSelector(
   selectTasksDomain,
   (tasksDomainState) => tasksDomainState.get('isLoading'),
-)
+);
 
 export {
   selectTasksDomain,

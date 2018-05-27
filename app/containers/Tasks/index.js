@@ -35,6 +35,7 @@ export class Tasks extends Component {
     taskList: PropTypes.array.isRequired,
 
     // ACTIONS
+    changeCategory: PropTypes.func.isRequired,
     requestTaskList: PropTypes.func.isRequired,
   }
 
@@ -108,15 +109,12 @@ export class Tasks extends Component {
       segmentProps,
     } = this;
 
-    const { isLoading } = this.props;
-
     return (
       <div>
         <Header {...headerProps} >Tasks for
           <Dropdown {...dropdownProps} />
         </Header>
-        <Segment {...segmentProps}
-        >
+        <Segment {...segmentProps} >
           <Board {...boardProps} >
             <Card />
           </Board>

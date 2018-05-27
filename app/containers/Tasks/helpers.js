@@ -1,5 +1,5 @@
 export function mapCategoryListToDropdown(categoryList = []) {
-  return categoryList.map(({ id, name}) => ({ text: name, value: id }));
+  return categoryList.map(({ id, name }) => ({ text: name, value: id }));
 }
 
 
