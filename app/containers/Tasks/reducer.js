@@ -10,6 +10,7 @@ import {
   ACTION_TASKS_FIND_TASK_LIST_REQUESTED,
   ACTION_TASKS_FIND_TASK_LIST_SUCCEEDED,
   ACTION_TASKS_FIND_TASK_LIST_FAILED,
+  ACTION_TASKS_CHANGE_CATEGORY,
 } from './actionTypes';
 
 
@@ -72,7 +73,8 @@ function makeMapOfTasksCategoriesByIds(origTasks) {
 export const initialState = fromJS({
   isLoading: false,
   tasksByIds: {},
-  tasksCategoriesByIds: {},
+  categoriesByIds: {},
+  selectedCategoryId: '',
 });
 
 function tasksReducer(state = initialState, action) {
@@ -88,6 +90,10 @@ function tasksReducer(state = initialState, action) {
 
     case ACTION_TASKS_FIND_TASK_LIST_FAILED:
       return state.set('isLoading', false);
+
+    case ACTION_TASKS_CHANGE_CATEGORY:
+      return state
+        .set('selectedCategoryId', action.payload.categoryId);
 
     default:
       return state;
