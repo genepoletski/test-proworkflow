@@ -23,14 +23,14 @@ import {
  *                  120: { id: 120, name: '...' },
  *               }
  */
-function convertTasksToMapByIds(origTasks) {
+function makeMapOfTasksByIds(origTasks) {
   const mapOfTasks = fromJS(origTasks);
 
-  const tasksGouppedByIds = mapOfTasks
+  const tasksGrouppedByIds = mapOfTasks
     .groupBy((task) => task.get('id'))
     .map((tasks) => tasks.first());
 
-  return tasksGouppedByIds;
+  return tasksGrouppedByIds;
 }
 
 /**
@@ -44,22 +44,35 @@ function convertTasksToMapByIds(origTasks) {
  *                 1: List [ 121, 122 ],
  *               }
  */
-function makeMapOfTasksIds(origTasks) {
+function makeMapOfTasksCategoriesByIds(origTasks) {
   const mapOfTasks = fromJS(origTasks);
 
   const tasksGrouppedByCategories = mapOfTasks
     .groupBy((task) => task.get('projectcategoryid'));
 
-  const tasksIdsGrouppedByCategory = tasksGrouppedByCategories
-    .map((tasks) => tasks.map((task) => task.get('id')));
+  const categoriesByIds = tasksGrouppedByCategories
+    .map((prevTaskCategory) => {
+      const firstCategoryTask = prevTaskCategory.first();
+      const categoryId = firstCategoryTask.get('projectcategoryid');
+      const categoryName = firstCategoryTask.get('projectcategoryname');
+      const categoryTasksIds = prevTaskCategory.map((task) => task.get('id'));
 
-  return tasksIdsGrouppedByCategory;
+      const nextCategoryMap = fromJS({
+        id: categoryId,
+        name: categoryName,
+        tasksIds: categoryTasksIds,
+      });
+
+      return nextCategoryMap;
+    });
+
+  return categoriesByIds;
 }
 
 export const initialState = fromJS({
   isLoading: false,
   tasksByIds: {},
-  tasksIdsByCategories: {},
+  tasksCategoriesByIds: {},
 });
 
 function tasksReducer(state = initialState, action) {
@@ -70,8 +83,8 @@ function tasksReducer(state = initialState, action) {
     case ACTION_TASKS_FIND_TASK_LIST_SUCCEEDED:
       return state
         .set('isLoading', false)
-        .set('tasksByIds', convertTasksToMapByIds(action.payload.tasks))
-        .set('tasksIdsByCategories', makeMapOfTasksIds(action.payload.tasks));
+        .set('tasksByIds', makeMapOfTasksByIds(action.payload.tasks))
+        .set('categoriesByIds', makeMapOfTasksCategoriesByIds(action.payload.tasks));
 
     case ACTION_TASKS_FIND_TASK_LIST_FAILED:
       return state.set('isLoading', false);
