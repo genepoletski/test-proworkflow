@@ -3,18 +3,23 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import Board from 'react-trello';
 
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { actionTasksFindTaskListRequest } from './actions';
 import reducer, { initialState } from './reducer';
 import saga from './saga';
-import { makeSelectTaskList } from './selectors';
+import {
+  makeSelectCategoryList,
+  makeSelectActiveCategoryTaskList,
+} from './selectors';
 
 
 export class Tasks extends Component {
   static propTypes = {
     // DATA
+    categoryList: PropTypes.array.isRequired,
     taskList: PropTypes.array.isRequired,
 
     // ACTIONS
@@ -23,6 +28,7 @@ export class Tasks extends Component {
 
   static defaultProps = {
     // DATA
+    categoryList: [],
     taskList: [],
   }
 
@@ -30,17 +36,20 @@ export class Tasks extends Component {
     this.props.requestTaskList();
   }
 
+  get boardProps() {
+    return {
+      draggabe: true,
+      data: {
+        lanes: [],
+      },
+    };
+  }
+
   render() {
-    const { taskList } = this.props;
-
-    const tasks = taskList.map((task) => <li key={task.id}>{task.name}</li>);
-
     return (
       <div>
         <h1>Tasks</h1>
-        <ul>
-          {tasks}
-        </ul>
+        <Board {...this.boardProps} />
       </div>
     );
   }
@@ -48,7 +57,8 @@ export class Tasks extends Component {
 
 
 const mapStateToProps = createStructuredSelector({
-  taskList: makeSelectTaskList(),
+  categoryList: makeSelectCategoryList(),
+  taskList: makeSelectActiveCategoryTaskList(),
 });
 
 function mapDispatchToProps(dispatch) {
