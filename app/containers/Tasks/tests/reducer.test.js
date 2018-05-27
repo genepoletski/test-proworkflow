@@ -7,6 +7,7 @@ import {
   actionTasksFindTaskListRequest,
   actionTasksFindTaskListSucceed,
   actionTasksFindTaskListFail,
+  actionTasksChangeCategory,
 } from '../actions';
 
 import tasksReducer from '../reducer';
@@ -137,5 +138,23 @@ describe('tasksReducer', () => {
       }))
         .toJS())
         .toMatchObject(nextState);
+  });
+
+  it('sets active tasks category', () => {
+    const prevState = fromJS({
+      selectedCategoryId: 42,
+    });
+
+    const nextState = {
+      selectedCategoryId: 57,
+    };
+
+    expect(
+      tasksReducer(
+        prevState, actionTasksChangeCategory({ categoryId: 57 })
+      )
+      .toJS()
+    )
+    .toMatchObject(nextState);
   });
 });
