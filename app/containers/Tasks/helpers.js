@@ -1,3 +1,8 @@
+export function mapCategoryListToDropdown(categoryList = []) {
+  return categoryList.map(({ id, name}) => ({ text: name, value: id }));
+}
+
+
 export function mapTaskListToReactTrello(taskList = []) {
   const tasksInProgressList = [];
   const tasksCompleteList = [];

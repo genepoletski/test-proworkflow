@@ -31,8 +31,14 @@ const makeSelectActiveCategoryTaskList = () => createSelector(
     .toArray(),
 );
 
+const makeSelectIsLoading = () => createSelector(
+  selectTasksDomain,
+  (tasksDomainState) => tasksDomainState.get('isLoading'),
+)
+
 export {
   selectTasksDomain,
   makeSelectCategoryList,
   makeSelectActiveCategoryTaskList,
+  makeSelectIsLoading,
 };
