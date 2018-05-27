@@ -14,12 +14,14 @@ import {
   makeSelectCategoryList,
   makeSelectActiveCategoryTaskList,
 } from './selectors';
+import { mapTaskListToReactTrello } from './helpers';
+import { Card } from './components';
 
 
 export class Tasks extends Component {
   static propTypes = {
     // DATA
-    categoryList: PropTypes.array.isRequired,
+    // categoryList: PropTypes.array.isRequired,
     taskList: PropTypes.array.isRequired,
 
     // ACTIONS
@@ -37,10 +39,12 @@ export class Tasks extends Component {
   }
 
   get boardProps() {
+    const { taskList } = this.props;
+
     return {
-      draggabe: true,
+      customCardLayout: true,
       data: {
-        lanes: [],
+        lanes: mapTaskListToReactTrello(taskList),
       },
     };
   }
@@ -49,7 +53,9 @@ export class Tasks extends Component {
     return (
       <div>
         <h1>Tasks</h1>
-        <Board {...this.boardProps} />
+        <Board {...this.boardProps} >
+          <Card />
+        </Board>
       </div>
     );
   }
