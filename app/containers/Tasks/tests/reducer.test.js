@@ -58,7 +58,7 @@ describe('tasksReducer', () => {
   it('stores task list after successful fetching properly', () => {
     const prevState = fromJS({
       tasksByIds: {},
-      tasksIdsByCategories: {},
+      tasksCategoriesByIds: {},
     });
 
     const receivedTasks = [
@@ -115,9 +115,17 @@ describe('tasksReducer', () => {
           name: 'Improve tracking system',
         },
       },
-      tasksIdsByCategories: {
-        42: [119, 120],
-        57: [121, 122],
+      categoriesByIds: {
+        42: {
+          id: 42,
+          name: 'Marketing',
+          tasksIds: [119, 120],
+        },
+        57: {
+          id: 57,
+          name: 'Logistics',
+          tasksIds: [121, 122],
+        },
       },
     };
 
