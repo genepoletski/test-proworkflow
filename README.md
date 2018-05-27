@@ -2,8 +2,22 @@
 
 (*) Project Boilerplate kindly provided by [React Boilerplate](https://github.com/react-boilerplate/react-boilerplate)
 
+## Technologies
++ [React](https://reactjs.org/)
++ [Redux](https://redux.js.org/)
++ [Redux-Saga](https://redux-saga.js.org/)
++ [Reselect](https://github.com/reduxjs/reselect)
++ [ImmutableJS](https://facebook.github.io/immutable-js/)
+
+## Third-party components
++ [Semantic UI React](https://react.semantic-ui.com)
++ [react-trello](https://github.com/rcdexta/react-trello)
+
+## Tools
++ [Jest](https://facebook.github.io/jest/en/)
+
 ## REST API
-### Haders
+### Headers
 | Key | Value |
 |---|---|
 | Authorization | Basic ZzFrSmZTazczaGo6dUg4M2s5cVc1MTNiY3pEMTg= |
