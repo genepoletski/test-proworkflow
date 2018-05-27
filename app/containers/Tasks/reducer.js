@@ -89,7 +89,8 @@ function tasksReducer(state = initialState, action) {
         .set('categoriesByIds', makeMapOfTasksCategoriesByIds(action.payload.tasks));
 
     case ACTION_TASKS_FIND_TASK_LIST_FAILED:
-      return state.set('isLoading', false);
+      return state
+        .set('isLoading', false);
 
     case ACTION_TASKS_CHANGE_CATEGORY:
       return state

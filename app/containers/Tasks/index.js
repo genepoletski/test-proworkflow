@@ -19,6 +19,7 @@ import {
   makeSelectCategoryList,
   makeSelectActiveCategoryTaskList,
   makeSelectIsLoading,
+  makeSelectSelectedCategoryId,
 } from './selectors';
 import {
   mapCategoryListToDropdown,
@@ -33,6 +34,7 @@ export class Tasks extends Component {
     categoryList: PropTypes.array.isRequired,
     isLoading: PropTypes.bool,
     taskList: PropTypes.array.isRequired,
+    selectedCategoryId: PropTypes.number,
 
     // ACTIONS
     changeCategory: PropTypes.func.isRequired,
@@ -50,6 +52,22 @@ export class Tasks extends Component {
     this.props.requestTaskList();
   }
 
+  componentDidUpdate = () => {
+    const {
+      categoryList,
+      changeCategory,
+      selectedCategoryId,
+    } = this.props;
+
+    if (selectedCategoryId) {
+      return;
+    }
+
+    if (categoryList.length > 0) {
+      changeCategory({ categoryId: categoryList[0].id });
+    }
+  }
+
   get boardProps() {
     const { taskList } = this.props;
 
@@ -62,9 +80,10 @@ export class Tasks extends Component {
   }
 
   get dropdownProps() {
-    const { categoryList } = this.props;
+    const { categoryList, selectedCategoryId } = this.props;
 
     return {
+      value: selectedCategoryId,
       onChange: this.handleCategoryChange,
       options: mapCategoryListToDropdown(categoryList),
       style: {
@@ -129,6 +148,7 @@ const mapStateToProps = createStructuredSelector({
   categoryList: makeSelectCategoryList(),
   isLoading: makeSelectIsLoading(),
   taskList: makeSelectActiveCategoryTaskList(),
+  selectedCategoryId: makeSelectSelectedCategoryId(),
 });
 
 function mapDispatchToProps(dispatch) {

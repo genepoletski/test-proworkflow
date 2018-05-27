@@ -36,9 +36,15 @@ const makeSelectIsLoading = () => createSelector(
   (tasksDomainState) => tasksDomainState.get('isLoading'),
 );
 
+const makeSelectSelectedCategoryId = () => createSelector(
+  selectSelectedCategoryId,
+  (selectedCategoryId) => selectedCategoryId,
+);
+
 export {
   selectTasksDomain,
   makeSelectCategoryList,
   makeSelectActiveCategoryTaskList,
   makeSelectIsLoading,
+  makeSelectSelectedCategoryId,
 };
